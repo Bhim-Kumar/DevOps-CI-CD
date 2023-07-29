@@ -2,9 +2,9 @@ pipeline {
   agent any
 	
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker-hub-cred')
-    REMOTE_SERVER = '52.73.28.146'
-    REMOTE_USER = 'ec2-user' 	  	  
+    DOCKERHUB_CREDENTIALS = credentials('Docker_Hub')
+    REMOTE_SERVER = '13.233.119.61'
+    REMOTE_USER = 'ubuntu' 	  	  
   }
 	
   // Fetch code from GitHub
@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/palakbhawsar98/JavaWebApp'
+        git branch: 'main', url: 'https://github.com/Bhim-Kumar/DevOps-CI-CD.git'
 
       }
     }
@@ -78,7 +78,7 @@ pipeline {
     stage('Deploy Docker image to AWS instance') {
       steps {
         script {
-          sshagent(credentials: ['awscred']) {
+          sshagent(credentials: ['Ubuntu_Credential']) {
           sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop javaApp || true && docker rm javaApp || true'"
 	  sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker pull palakbhawsar/javawebapp'"
           sh "ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_SERVER} 'docker run --name javaApp -d -p 8081:8081 palakbhawsar/javawebapp'"
