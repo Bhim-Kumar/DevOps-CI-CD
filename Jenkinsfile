@@ -3,7 +3,7 @@ pipeline {
 	
   environment {
     DOCKERHUB_CREDENTIALS = credentials('Docker_Hub')
-    REMOTE_SERVER = '13.233.119.61'
+    REMOTE_SERVER = '13.234.21.218'
     REMOTE_USER = 'ubuntu' 	  	  
   }
 	
@@ -21,7 +21,7 @@ pipeline {
 	  
     stage('Maven Build') {
       steps {
-        sh 'mvn clean install'
+        sh 'mvn clean'
       }
 	    
      // Post building archive Java application
