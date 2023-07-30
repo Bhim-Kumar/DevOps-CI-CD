@@ -21,7 +21,7 @@ pipeline {
 	  
     stage('Maven Build') {
       steps {
-        sh 'mvn clean'
+        sh 'mvn clean install'
       }
 	    
      // Post building archive Java application
